@@ -16,6 +16,8 @@ TextStyle blackTextStyle = GoogleFonts.poppins(color: blackColor);
 
 TextStyle whiteTextStyle = GoogleFonts.poppins(color: whiteColor);
 
+TextStyle numberTextStyle = GoogleFonts.ptSans(color: whiteColor);
+
 TextStyle greyTextStyle = GoogleFonts.poppins(color: greyColor);
 
 TextStyle orangeTextStyle = GoogleFonts.poppins(color: orangeColor);

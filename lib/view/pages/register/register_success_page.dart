@@ -35,7 +35,10 @@ class RegisterSuccsessPage extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, '/home', (route) => false);
+                    },
                     style: ElevatedButton.styleFrom(
                         foregroundColor: whiteColor,
                         backgroundColor: orangeColor,
