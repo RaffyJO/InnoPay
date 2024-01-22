@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:innopay/view/pages/home/home_page.dart';
 import 'package:innopay/view/pages/login_page.dart';
 import 'package:innopay/view/pages/onboarding_page.dart';
+import 'package:innopay/view/pages/profile/profile_page.dart';
 import 'package:innopay/view/pages/register/register_page.dart';
 import 'package:innopay/view/pages/register/register_set_ktp_page.dart';
 import 'package:innopay/view/pages/register/register_success_page.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         '/register-set-ktp': (context) => const RegisterSetKtpPage(),
         '/register-success': (context) => const RegisterSuccsessPage(),
         '/home': (context) => const HomePage(),
+        '/profile': (context) => const ProfilePage(),
       },
     );
   }

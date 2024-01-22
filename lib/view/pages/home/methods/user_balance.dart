@@ -26,9 +26,8 @@ class _UserBalanceWidgetState extends State<UserBalanceWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: 250,
                     child: Text(
-                      '  Rp 124.321.900',
+                      '  Rp 100.000',
                       style: whiteTextStyle.copyWith(
                         fontSize: 32,
                         fontWeight: semiBold,
@@ -54,9 +53,8 @@ class _UserBalanceWidgetState extends State<UserBalanceWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: 250,
                     child: Text(
-                      '  ***********',
+                      '  ********',
                       style: whiteTextStyle.copyWith(
                         fontSize: 32,
                         fontWeight: semiBold,
