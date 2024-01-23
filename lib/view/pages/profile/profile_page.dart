@@ -26,18 +26,32 @@ class ProfilePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     profileItem(
-                        'Edit Profile',
-                        const Icon(
-                          Icons.person_2_outlined,
-                          size: 28,
-                        )),
+                      'Edit Profile',
+                      const Icon(
+                        Icons.person_2_outlined,
+                        size: 28,
+                      ),
+                      onTap: () async {
+                        if (await Navigator.pushNamed(context, '/pin') ==
+                            true) {
+                          Navigator.pushNamed(context, '/profile-edit');
+                        }
+                      },
+                    ),
                     verticalSpace(5),
                     profileItem(
-                        'My PIN',
-                        const Icon(
-                          Icons.pin_outlined,
-                          size: 28,
-                        )),
+                      'My PIN',
+                      const Icon(
+                        Icons.pin_outlined,
+                        size: 28,
+                      ),
+                      onTap: () async {
+                        if (await Navigator.pushNamed(context, '/pin') ==
+                            true) {
+                          Navigator.pushNamed(context, '/profile-edit-pin');
+                        }
+                      },
+                    ),
                     verticalSpace(5),
                     profileItem(
                         'Wallet Settings',

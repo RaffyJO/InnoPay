@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:innopay/view/pages/home/home_page.dart';
 import 'package:innopay/view/pages/login_page.dart';
 import 'package:innopay/view/pages/onboarding_page.dart';
+import 'package:innopay/view/pages/pin_page.dart';
+import 'package:innopay/view/pages/profile/profile_edit_page.dart';
+import 'package:innopay/view/pages/profile/profile_edit_pin_page.dart';
 import 'package:innopay/view/pages/profile/profile_page.dart';
 import 'package:innopay/view/pages/register/register_page.dart';
 import 'package:innopay/view/pages/register/register_set_ktp_page.dart';
+import 'package:innopay/view/pages/register/register_set_profile_page.dart';
 import 'package:innopay/view/pages/register/register_success_page.dart';
-import 'package:innopay/view/pages/register/register_upload_profile_page.dart';
 import 'package:innopay/view/pages/splash_page.dart';
 
 void main() {
@@ -30,6 +33,9 @@ class MyApp extends StatelessWidget {
         '/register-success': (context) => const RegisterSuccsessPage(),
         '/home': (context) => const HomePage(),
         '/profile': (context) => const ProfilePage(),
+        '/pin': (context) => const PinPage(),
+        '/profile-edit': (context) => ProfileEditPage(),
+        '/profile-edit-pin': (context) => ProfileEditPinPage(),
       },
     );
   }

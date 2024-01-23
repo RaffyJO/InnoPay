@@ -15,14 +15,14 @@ class RegisterSetKtpPage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                verticalSpace(80),
+                verticalSpace(70),
                 Center(
                   child: Image.asset(
                     'assets/logo2.png',
                     width: 180,
                   ),
                 ),
-                verticalSpace(80),
+                verticalSpace(70),
                 Text(
                   'Verify Your\nAccount',
                   style: blackTextStyle.copyWith(

@@ -33,10 +33,15 @@ class CustomTextField extends StatelessWidget {
           controller: controller,
           keyboardType: textInputType,
           decoration: InputDecoration(
-              hintText: hintText,
-              contentPadding: const EdgeInsets.all(12),
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+            hintText: hintText,
+            contentPadding: const EdgeInsets.all(12),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: orangeColor),
+            ),
+          ),
+          cursorColor: orangeColor,
         )
       ],
     );

@@ -5,6 +5,8 @@ import 'package:innopay/view/widgets/forms.dart';
 
 class RegisterSetProfilePage extends StatelessWidget {
   final TextEditingController pinController = TextEditingController();
+  final TextEditingController confirmationPinController =
+      TextEditingController();
 
   RegisterSetProfilePage({super.key});
 
@@ -18,14 +20,14 @@ class RegisterSetProfilePage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                verticalSpace(80),
+                verticalSpace(70),
                 Center(
                   child: Image.asset(
                     'assets/logo2.png',
                     width: 180,
                   ),
                 ),
-                verticalSpace(80),
+                verticalSpace(70),
                 Text(
                   'Join Us To Unlock\nYour Growth',
                   style: blackTextStyle.copyWith(
@@ -69,6 +71,13 @@ class RegisterSetProfilePage extends StatelessWidget {
                   title: 'Set PIN (6 digit number)',
                   obscureText: true,
                   controller: pinController,
+                  textInputType: TextInputType.number,
+                ),
+                verticalSpace(12),
+                CustomTextField(
+                  title: 'Confirmation PIN',
+                  obscureText: true,
+                  controller: confirmationPinController,
                   textInputType: TextInputType.number,
                 ),
                 verticalSpace(30),
