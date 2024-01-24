@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:innopay/shared/methods.dart';
 import 'package:innopay/shared/theme.dart';
 
-Widget userServices() {
+Widget userServices(BuildContext context) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceAround,
     children: [
@@ -25,7 +25,9 @@ Widget userServices() {
         ),
       ),
       GestureDetector(
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, '/top-up');
+        },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

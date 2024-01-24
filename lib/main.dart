@@ -11,6 +11,9 @@ import 'package:innopay/view/pages/register/register_set_ktp_page.dart';
 import 'package:innopay/view/pages/register/register_set_profile_page.dart';
 import 'package:innopay/view/pages/register/register_success_page.dart';
 import 'package:innopay/view/pages/splash_page.dart';
+import 'package:innopay/view/pages/top_up/topup_amount_page.dart';
+import 'package:innopay/view/pages/top_up/topup_page.dart';
+import 'package:innopay/view/pages/top_up/topup_success_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,6 +39,9 @@ class MyApp extends StatelessWidget {
         '/pin': (context) => const PinPage(),
         '/profile-edit': (context) => ProfileEditPage(),
         '/profile-edit-pin': (context) => ProfileEditPinPage(),
+        '/top-up': (context) => const TopUpPage(),
+        '/top-up-amount': (context) => const TopUpAmountPage(),
+        '/top-up-success': (context) => const TopUpSuccessPage(),
       },
     );
   }

@@ -16,7 +16,7 @@ Widget userInfo() {
           height: 70,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: Border.all(color: greyColor, width: 0.5),
+            border: Border.all(color: greyColor, width: 0.2),
             image: const DecorationImage(
                 image: AssetImage('assets/img_photo_profile.png'),
                 fit: BoxFit.cover),

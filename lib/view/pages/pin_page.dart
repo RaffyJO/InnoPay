@@ -161,7 +161,7 @@ class _PinPageState extends State<PinPage> {
                       height: 60,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: numberBackgroundColor,
+                        color: blackColor,
                       ),
                       child: Center(
                         child: Icon(

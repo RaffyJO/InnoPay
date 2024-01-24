@@ -20,7 +20,7 @@ class CustomInputButton extends StatelessWidget {
         height: 60,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: numberBackgroundColor,
+          color: blackColor,
         ),
         child: Center(
           child: Text(
