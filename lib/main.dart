@@ -14,6 +14,9 @@ import 'package:innopay/view/pages/splash_page.dart';
 import 'package:innopay/view/pages/top_up/topup_amount_page.dart';
 import 'package:innopay/view/pages/top_up/topup_page.dart';
 import 'package:innopay/view/pages/top_up/topup_success_page.dart';
+import 'package:innopay/view/pages/transfer/transfer_amount_page.dart';
+import 'package:innopay/view/pages/transfer/transfer_page.dart';
+import 'package:innopay/view/pages/transfer/transfer_success_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -42,6 +45,9 @@ class MyApp extends StatelessWidget {
         '/top-up': (context) => const TopUpPage(),
         '/top-up-amount': (context) => const TopUpAmountPage(),
         '/top-up-success': (context) => const TopUpSuccessPage(),
+        '/transfer': (context) => const TransferPage(),
+        '/transfer-amount': (context) => const TransferAmountPage(),
+        '/transfer-success': (context) => const TransferSuccessPage(),
       },
     );
   }

@@ -7,7 +7,9 @@ Widget userServices(BuildContext context) {
     mainAxisAlignment: MainAxisAlignment.spaceAround,
     children: [
       GestureDetector(
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, '/transfer');
+        },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
