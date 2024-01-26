@@ -50,7 +50,7 @@ class TransferPage extends StatelessWidget {
                         ),
                         verticalSpace(2),
                         Text(
-                          'Rp 100.000',
+                          formatCurrency(100000),
                           style: whiteTextStyle.copyWith(
                               fontSize: 24, fontWeight: semiBold),
                         ),

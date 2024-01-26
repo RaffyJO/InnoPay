@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:innopay/shared/methods.dart';
 import 'package:innopay/shared/theme.dart';
+import 'package:innopay/view/pages/more_dialog.dart';
 
 Widget userServices(BuildContext context) {
   return Row(
@@ -15,7 +16,7 @@ Widget userServices(BuildContext context) {
           children: [
             Image.asset(
               'assets/icon-friends.png',
-              width: 36,
+              width: 36.5,
             ),
             verticalSpace(2),
             Text(
@@ -65,7 +66,10 @@ Widget userServices(BuildContext context) {
         ),
       ),
       GestureDetector(
-        onTap: () {},
+        onTap: () {
+          showDialog(
+              context: context, builder: (context) => const MoreDialog());
+        },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

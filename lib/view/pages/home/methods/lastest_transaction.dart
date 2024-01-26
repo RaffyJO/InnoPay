@@ -12,26 +12,26 @@ Widget lastestTransaction() {
         style: blackTextStyle.copyWith(fontSize: 18, fontWeight: semiBold),
       ),
       verticalSpace(15),
-      const ItemLastestTransaction(
+      ItemLastestTransaction(
           icon: 'assets/icon-friends.png',
           title: 'Transfer',
           time: 'May 29. 2023 - 19:12',
-          value: '- Rp 600.000'),
-      const ItemLastestTransaction(
+          value: '- ${formatCurrency(600000)}'),
+      ItemLastestTransaction(
           icon: 'assets/icon-topup.png',
           title: 'Top Up',
           time: 'May 29. 2023 - 19:12',
-          value: '+ Rp 260.000'),
-      const ItemLastestTransaction(
+          value: '+ ${formatCurrency(260000)}'),
+      ItemLastestTransaction(
           icon: 'assets/icon-withdraw.png',
           title: 'Withdraw',
           time: 'May 29. 2023 - 19:12',
-          value: '- Rp 300.000'),
-      const ItemLastestTransaction(
+          value: '- ${formatCurrency(300000)}'),
+      ItemLastestTransaction(
           icon: 'assets/icon-topup.png',
           title: 'Top Up',
           time: 'May 29. 2023 - 19:12',
-          value: '+ Rp 700.000'),
+          value: '+ ${formatCurrency(700000)}'),
     ],
   );
 }

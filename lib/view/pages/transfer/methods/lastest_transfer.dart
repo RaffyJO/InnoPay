@@ -14,22 +14,22 @@ Widget lastestTransfer(BuildContext context) {
           style: blackTextStyle.copyWith(fontSize: 16, fontWeight: semiBold),
         ),
         verticalSpace(12),
-        const LastestTransferUserItem(
+        LastestTransferUserItem(
           imgUrl: 'assets/img_photo_profile.png',
           name: 'Alexandria',
           time: 'May 31, 2023 - 09:13',
-          value: 'Rp 600.000',
+          value: formatCurrency(600000),
         ),
-        const LastestTransferUserItem(
+        LastestTransferUserItem(
             imgUrl: 'assets/img_photo_profile.png',
             name: 'Alexandria',
             time: 'May 31, 2023 - 09:13',
-            value: 'Rp 600.000'),
-        const LastestTransferUserItem(
+            value: formatCurrency(600000)),
+        LastestTransferUserItem(
             imgUrl: 'assets/img_photo_profile.png',
             name: 'Alexandria',
             time: 'May 31, 2023 - 09:13',
-            value: 'Rp 600.000'),
+            value: formatCurrency(600000)),
       ],
     ),
   );

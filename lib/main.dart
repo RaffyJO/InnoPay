@@ -6,6 +6,9 @@ import 'package:innopay/view/pages/pin_page.dart';
 import 'package:innopay/view/pages/profile/profile_edit_page.dart';
 import 'package:innopay/view/pages/profile/profile_edit_pin_page.dart';
 import 'package:innopay/view/pages/profile/profile_page.dart';
+import 'package:innopay/view/pages/pulsa_data/data_internet_package_page.dart';
+import 'package:innopay/view/pages/pulsa_data/data_internet_page.dart';
+import 'package:innopay/view/pages/pulsa_data/data_internet_success.dart';
 import 'package:innopay/view/pages/register/register_page.dart';
 import 'package:innopay/view/pages/register/register_set_ktp_page.dart';
 import 'package:innopay/view/pages/register/register_set_profile_page.dart';
@@ -48,6 +51,9 @@ class MyApp extends StatelessWidget {
         '/transfer': (context) => const TransferPage(),
         '/transfer-amount': (context) => const TransferAmountPage(),
         '/transfer-success': (context) => const TransferSuccessPage(),
+        '/data-internet': (context) => const DataInternetPage(),
+        '/data-internet-package': (context) => const DataInternetPackagePage(),
+        '/data-internet-success': (context) => const DataInternetSuccessPage(),
       },
     );
   }

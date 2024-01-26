@@ -46,7 +46,7 @@ class TransferSuccessPage extends StatelessWidget {
                     ),
                     verticalSpace(25),
                     Text(
-                      'Rp 200.000',
+                      formatCurrency(200000),
                       style: blackTextStyle.copyWith(
                           fontSize: 30, fontWeight: semiBold),
                     ),
@@ -108,7 +108,7 @@ class TransferSuccessPage extends StatelessWidget {
                               fontSize: 14, fontWeight: semiBold),
                         ),
                         Text(
-                          'Rp 200.000',
+                          formatCurrency(200000),
                           style: blackTextStyle.copyWith(
                               fontSize: 14, fontWeight: semiBold),
                         )
@@ -172,7 +172,7 @@ class TransferSuccessPage extends StatelessWidget {
                               fontSize: 14, fontWeight: semiBold),
                         ),
                         Text(
-                          'Rp 0',
+                          formatCurrency(0),
                           style: blackTextStyle.copyWith(
                               fontSize: 14, fontWeight: semiBold),
                         )
@@ -188,7 +188,7 @@ class TransferSuccessPage extends StatelessWidget {
                               fontSize: 20, fontWeight: semiBold),
                         ),
                         Text(
-                          'Rp 200.000',
+                          formatCurrency(200000),
                           style: blackTextStyle.copyWith(
                               fontSize: 20, fontWeight: semiBold),
                         )

@@ -27,7 +27,7 @@ class _UserBalanceWidgetState extends State<UserBalanceWidget> {
                 children: [
                   SizedBox(
                     child: Text(
-                      '  Rp 100.000',
+                      '  ${formatCurrency(100000)}',
                       style: whiteTextStyle.copyWith(
                         fontSize: 32,
                         fontWeight: semiBold,

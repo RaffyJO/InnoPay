@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:innopay/shared/methods.dart';
 import 'package:innopay/shared/theme.dart';
 import 'package:innopay/view/widgets/buttons.dart';
 
@@ -23,7 +24,7 @@ class _PinPageState extends State<PinPage> {
       if (pinController.text == '111111') {
         Navigator.pop(context, true);
       } else {
-        // showCustomSnackbar(context, 'PIN yang anda masukkan salah');
+        showCustomSnackbar(context, 'The PIN you entered is incorrect.');
       }
     }
   }

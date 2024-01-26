@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:innopay/shared/methods.dart';
 import 'package:innopay/shared/theme.dart';
-import 'package:innopay/view/widgets/bank_item.dart';
+import 'package:innopay/view/widgets/internet_item.dart';
 
-class TopUpPage extends StatelessWidget {
-  const TopUpPage({super.key});
+class DataInternetPage extends StatelessWidget {
+  const DataInternetPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class TopUpPage extends StatelessWidget {
         backgroundColor: lightBackgroundColor,
         centerTitle: true,
         title: Text(
-          'Top Up',
+          'Internet Data',
           style: blackTextStyle.copyWith(fontWeight: semiBold, fontSize: 20),
         ),
       ),
@@ -38,22 +38,22 @@ class TopUpPage extends StatelessWidget {
                 ),
                 verticalSpace(40),
                 Text(
-                  'Select Bank',
+                  'Select Provider',
                   style: blackTextStyle.copyWith(
                       fontWeight: semiBold, fontSize: 16),
                 ),
                 verticalSpace(12),
-                const BankItem(
-                    name: 'Bank BCA', imgUrl: 'assets/img_bank_bca.png'),
-                const BankItem(
-                  name: 'Bank Mandiri',
-                  imgUrl: 'assets/img_bank_mandiri.png',
+                const InternetItem(
+                    name: 'Telkomsel',
+                    imgUrl: 'assets/img_provider_telkomsel.png'),
+                const InternetItem(
+                  name: 'Indosat Ooredoo',
+                  imgUrl: 'assets/img_provider_indosat.png',
                   isSelected: true,
                 ),
-                const BankItem(
-                    name: 'Bank BNI', imgUrl: 'assets/img_bank_bni.png'),
-                const BankItem(
-                    name: 'Bank OCBC', imgUrl: 'assets/img_bank_ocbc.png'),
+                const InternetItem(
+                    name: 'Singtel ID',
+                    imgUrl: 'assets/img_provider_singtel.png'),
               ],
             ),
           ),
@@ -64,7 +64,7 @@ class TopUpPage extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/top-up-amount');
+                    Navigator.pushNamed(context, '/data-internet-package');
                   },
                   style: ElevatedButton.styleFrom(
                       foregroundColor: whiteColor,
