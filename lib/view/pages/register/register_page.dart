@@ -8,6 +8,15 @@ class RegisterPage extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
 
+  bool validate() {
+    if (emailController.text.isEmpty ||
+        nameController.text.isEmpty ||
+        passwordController.text.isEmpty) {
+      return false;
+    }
+    return true;
+  }
+
   RegisterPage({super.key});
 
   @override
@@ -60,7 +69,12 @@ class RegisterPage extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, "/register-set-profile");
+                        if (validate()) {
+                          Navigator.pushNamed(context, "/register-set-profile");
+                        } else {
+                          showCustomSnackbar(
+                              context, 'Please complete all data first!');
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                           foregroundColor: whiteColor,
