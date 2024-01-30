@@ -7,12 +7,12 @@ class RegisterModel {
   final String? ktp;
 
   RegisterModel(
-      {required this.name,
-      required this.email,
-      required this.password,
-      required this.pin,
-      required this.profilePicture,
-      required this.ktp});
+      {this.name,
+      this.email,
+      this.password,
+      this.pin,
+      this.profilePicture,
+      this.ktp});
 
   RegisterModel copyWith({String? pin, String? profilePicture, String? ktp}) =>
       RegisterModel(
