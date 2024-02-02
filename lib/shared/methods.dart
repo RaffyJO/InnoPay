@@ -1,5 +1,6 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 Map<double, SizedBox> _verticalSpaces = {};
@@ -40,4 +41,12 @@ String formatCurrency(num number, {String symbol = 'Rp '}) {
     symbol: symbol,
     decimalDigits: 0,
   ).format(number);
+}
+
+// Select Profile Image
+Future<XFile?> selectImage() async {
+  XFile? selectedImage =
+      await ImagePicker().pickImage(source: ImageSource.gallery);
+
+  return selectedImage;
 }

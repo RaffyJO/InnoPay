@@ -12,7 +12,6 @@ import 'package:innopay/view/pages/pulsa_data/data_internet_package_page.dart';
 import 'package:innopay/view/pages/pulsa_data/data_internet_page.dart';
 import 'package:innopay/view/pages/pulsa_data/data_internet_success.dart';
 import 'package:innopay/view/pages/register/register_page.dart';
-import 'package:innopay/view/pages/register/register_set_ktp_page.dart';
 import 'package:innopay/view/pages/register/register_success_page.dart';
 import 'package:innopay/view/pages/splash_page.dart';
 import 'package:innopay/view/pages/top_up/topup_amount_page.dart';
@@ -40,7 +39,6 @@ class MyApp extends StatelessWidget {
           '/onboarding': (context) => const OnboardingPage(),
           '/login': (context) => LoginPage(),
           '/register': (context) => RegisterPage(),
-          '/register-set-ktp': (context) => const RegisterSetKtpPage(),
           '/register-success': (context) => const RegisterSuccsessPage(),
           '/home': (context) => const HomePage(),
           '/profile': (context) => const ProfilePage(),

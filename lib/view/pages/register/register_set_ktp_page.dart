@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:innopay/models/register_model.dart';
 import 'package:innopay/shared/methods.dart';
 import 'package:innopay/shared/theme.dart';
 
 class RegisterSetKtpPage extends StatelessWidget {
-  const RegisterSetKtpPage({super.key});
+  final RegisterModel data;
+
+  const RegisterSetKtpPage({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
