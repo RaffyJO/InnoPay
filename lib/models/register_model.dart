@@ -14,6 +14,17 @@ class RegisterModel {
       this.profilePicture,
       this.ktp});
 
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'email': email,
+      'password': password,
+      'pin': pin,
+      'profile_picture': profilePicture,
+      'ktp': ktp,
+    };
+  }
+
   RegisterModel copyWith({String? pin, String? profilePicture, String? ktp}) =>
       RegisterModel(
           name: name,

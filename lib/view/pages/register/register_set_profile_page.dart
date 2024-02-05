@@ -118,14 +118,15 @@ class _RegisterSetProfilePageState extends State<RegisterSetProfilePage> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => RegisterSetKtpPage(
-                                    data: RegisterModel(
-                                        pin: pinController.text,
-                                        profilePicture: (selectedImage == null)
-                                            ? null
-                                            : 'data:image/png;base64,${base64Encode(
-                                                File(selectedImage!.path)
-                                                    .readAsBytesSync(),
-                                              )}'),
+                                    data: widget.data.copyWith(
+                                      pin: pinController.text,
+                                      profilePicture: (selectedImage == null)
+                                          ? null
+                                          : 'data:image/png;base64,${base64Encode(
+                                              File(selectedImage!.path)
+                                                  .readAsBytesSync(),
+                                            )}',
+                                    ),
                                   ),
                                 ));
                           } else {
