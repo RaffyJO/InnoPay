@@ -25,6 +25,12 @@ class TopUpSuccessPage extends StatelessWidget {
                     blackTextStyle.copyWith(fontSize: 20, fontWeight: semiBold),
                 textAlign: TextAlign.center,
               ),
+              verticalSpace(16),
+              Text(
+                'Thank you for top up\nyour balance',
+                style: greyTextStyle.copyWith(fontSize: 16),
+                textAlign: TextAlign.center,
+              ),
               verticalSpace(50),
               SizedBox(
                 width: double.infinity,

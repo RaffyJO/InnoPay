@@ -20,8 +20,8 @@ class RegisterModel {
       'email': email,
       'password': password,
       'pin': pin,
-      'profile_picture': profilePicture,
-      'ktp': ktp,
+      'profile_picture': profilePicture ?? '',
+      'ktp': ktp ?? '',
     };
   }
 

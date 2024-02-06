@@ -36,7 +36,6 @@ class _RegisterSetKtpPageState extends State<RegisterSetKtpPage> {
         listener: (context, state) {
           if (state is AuthFailed) {
             showCustomSnackbar(context, state.e);
-            print(state.e);
           }
 
           if (state is AuthSuccess) {
@@ -46,7 +45,6 @@ class _RegisterSetKtpPageState extends State<RegisterSetKtpPage> {
         },
         builder: (context, state) {
           if (state is AuthLoading) {
-            print('crk');
             return const Center(child: CircularProgressIndicator());
           }
           return Padding(
@@ -114,12 +112,11 @@ class _RegisterSetKtpPageState extends State<RegisterSetKtpPage> {
                             if (validateKtp()) {
                               context.read<AuthBloc>().add(
                                     AuthRegister(widget.data.copyWith(
-                                      ktp: (selectedImage == null)
-                                          ? null
-                                          : 'data:image/png;base64${base64Encode(
-                                              File(selectedImage!.path)
-                                                  .readAsBytesSync(),
-                                            )}',
+                                      ktp:
+                                          'data:image/png;base64,${base64Encode(
+                                        File(selectedImage!.path)
+                                            .readAsBytesSync(),
+                                      )}',
                                     )),
                                   );
                             } else {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:innopay/blocs/auth/auth_bloc.dart';
 import 'package:innopay/view/pages/home/home_page.dart';
-import 'package:innopay/view/pages/login_page.dart';
+import 'package:innopay/view/pages/login/login_page.dart';
 import 'package:innopay/view/pages/onboarding_page.dart';
 import 'package:innopay/view/pages/pin_page.dart';
 import 'package:innopay/view/pages/profile/profile_edit_page.dart';
@@ -31,7 +31,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => AuthBloc())],
+      providers: [
+        BlocProvider(create: (context) => AuthBloc()..add(AuthGetCurrentUser()))
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
