@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:innopay/shared/methods.dart';
 import 'package:innopay/shared/theme.dart';
 
-Widget userInfo() {
+Widget userInfo({
+  required String name,
+  required String userName,
+  required String profilePicture,
+  required String points,
+}) {
   return Container(
     padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
     width: double.infinity,
@@ -17,8 +22,10 @@ Widget userInfo() {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(color: greyColor, width: 0.2),
-            image: const DecorationImage(
-                image: AssetImage('assets/img_photo_profile.png'),
+            image: DecorationImage(
+                image: (profilePicture == '')
+                    ? const AssetImage('assets/user-profile.png')
+                    : NetworkImage(profilePicture) as ImageProvider,
                 fit: BoxFit.cover),
           ),
         ),
@@ -29,12 +36,12 @@ Widget userInfo() {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'John Doe',
+                name,
                 style:
                     blackTextStyle.copyWith(fontSize: 16, fontWeight: semiBold),
               ),
               Text(
-                'johndoe@gmail.com',
+                userName,
                 style: greyTextStyle.copyWith(fontSize: 13, fontWeight: medium),
               ),
             ],
@@ -49,7 +56,7 @@ Widget userInfo() {
             ),
             horizontalSpace(5),
             Text(
-              '1.972 Points',
+              '$points Points',
               style:
                   blackTextStyle.copyWith(fontSize: 14, fontWeight: semiBold),
             )

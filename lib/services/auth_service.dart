@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -61,8 +62,6 @@ class AuthService {
         body: data.toJson(),
       );
 
-      print(res.body);
-
       if (res.statusCode == 200) {
         UserModel user = UserModel.fromJson(jsonDecode(res.body));
         user = user.copyWith(password: data.password);
@@ -70,6 +69,27 @@ class AuthService {
         await storeCredentialToLocal(user);
 
         return user;
+      } else {
+        throw jsonDecode(res.body)['message'];
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> logout() async {
+    try {
+      final token = await getToken();
+
+      final res = await http.post(
+        Uri.parse('$baseUrl/logout'),
+        headers: {
+          'Authorization': token,
+        },
+      );
+
+      if (res.statusCode == 200) {
+        await clearLocalStorage();
       } else {
         throw jsonDecode(res.body)['message'];
       }

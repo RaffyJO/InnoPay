@@ -2,8 +2,11 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:innopay/models/login_model.dart';
 import 'package:innopay/models/register_model.dart';
+import 'package:innopay/models/user_edit_model.dart';
 import 'package:innopay/models/user_model.dart';
 import 'package:innopay/services/auth_service.dart';
+import 'package:innopay/services/user_service.dart';
+import 'package:innopay/services/wallet_service.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -59,6 +62,57 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           final UserModel user = await AuthService().login(data);
 
           emit(AuthSuccess(user));
+        } catch (e) {
+          emit(AuthFailed(e.toString()));
+        }
+      }
+
+      if (event is AuthUpdateUser) {
+        try {
+          if (state is AuthSuccess) {
+            final updatedUser = (state as AuthSuccess).user.copyWith(
+                  username: event.data.email,
+                  name: event.data.name,
+                  email: event.data.email,
+                  password: event.data.password,
+                );
+
+            emit(AuthLoading());
+
+            await UserService().updateUser(event.data);
+
+            emit(AuthSuccess(updatedUser));
+          }
+        } catch (e) {
+          emit(AuthFailed(e.toString()));
+        }
+      }
+
+      if (event is AuthUpdatePin) {
+        try {
+          if (state is AuthSuccess) {
+            final updatedUser = (state as AuthSuccess).user.copyWith(
+                  pin: event.newPin,
+                );
+
+            emit(AuthLoading());
+
+            await WalletService().updatePin(event.oldPin, event.newPin);
+
+            emit(AuthSuccess(updatedUser));
+          }
+        } catch (e) {
+          emit(AuthFailed(e.toString()));
+        }
+      }
+
+      if (event is AuthLogout) {
+        try {
+          emit(AuthLoading());
+
+          await AuthService().logout();
+
+          emit(AuthInitial());
         } catch (e) {
           emit(AuthFailed(e.toString()));
         }

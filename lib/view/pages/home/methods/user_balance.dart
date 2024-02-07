@@ -1,9 +1,14 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:innopay/shared/methods.dart';
 import 'package:innopay/shared/theme.dart';
 
 class UserBalanceWidget extends StatefulWidget {
-  const UserBalanceWidget({Key? key}) : super(key: key);
+  int balance;
+  UserBalanceWidget({
+    Key? key,
+    required this.balance,
+  }) : super(key: key);
 
   @override
   _UserBalanceWidgetState createState() => _UserBalanceWidgetState();
@@ -27,7 +32,7 @@ class _UserBalanceWidgetState extends State<UserBalanceWidget> {
                 children: [
                   SizedBox(
                     child: Text(
-                      '  ${formatCurrency(100000)}',
+                      '  ${formatCurrency(widget.balance)}',
                       style: whiteTextStyle.copyWith(
                         fontSize: 32,
                         fontWeight: semiBold,

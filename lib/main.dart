@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
           '/home': (context) => const HomePage(),
           '/profile': (context) => const ProfilePage(),
           '/pin': (context) => const PinPage(),
-          '/profile-edit': (context) => ProfileEditPage(),
+          '/profile-edit': (context) => const ProfileEditPage(),
           '/profile-edit-pin': (context) => ProfileEditPinPage(),
           '/top-up': (context) => const TopUpPage(),
           '/top-up-amount': (context) => const TopUpAmountPage(),

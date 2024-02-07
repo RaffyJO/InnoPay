@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:innopay/shared/methods.dart';
 import 'package:innopay/shared/theme.dart';
 
-Widget userInfo() {
+Widget userInfo({
+  required String name,
+  required String points,
+}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Column(
         children: [
           Text(
-            'Hi, John Doe!',
+            'Hi, $name',
             style: whiteTextStyle.copyWith(fontSize: 16, fontWeight: semiBold),
           ),
         ],
@@ -30,7 +33,7 @@ Widget userInfo() {
               ),
               horizontalSpace(5),
               Text(
-                '1.972 Points',
+                '$points Points',
                 style:
                     blackTextStyle.copyWith(fontSize: 14, fontWeight: semiBold),
               )
