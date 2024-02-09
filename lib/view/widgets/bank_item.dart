@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:innopay/models/payment_method_model.dart';
 import 'package:innopay/shared/theme.dart';
 
 class BankItem extends StatelessWidget {
   final bool isSelected;
-  final String name;
-  final String imgUrl;
+  final PaymentMethodModel paymentMethods;
 
   const BankItem({
     Key? key,
     this.isSelected = false,
-    required this.name,
-    required this.imgUrl,
+    required this.paymentMethods,
   }) : super(key: key);
 
   @override
@@ -27,21 +26,21 @@ class BankItem extends StatelessWidget {
           width: 2,
           color: isSelected
               ? orangeColor
-              : const Color.fromARGB(120, 158, 158, 158),
+              : const Color.fromARGB(85, 158, 158, 158),
         ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.asset(
-            imgUrl,
+          Image.network(
+            paymentMethods.thumbnail.toString(),
             height: 30,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                name,
+                paymentMethods.name!,
                 style: blackTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: semiBold,
@@ -51,7 +50,7 @@ class BankItem extends StatelessWidget {
                 height: 2,
               ),
               Text(
-                '50 mins',
+                paymentMethods.status!,
                 style: greyTextStyle.copyWith(
                   fontSize: 12,
                 ),

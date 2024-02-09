@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:innopay/blocs/auth/auth_bloc.dart';
+import 'package:innopay/blocs/payment_method/payment_method_bloc.dart';
+import 'package:innopay/blocs/topup/topup_bloc.dart';
 import 'package:innopay/view/pages/home/home_page.dart';
 import 'package:innopay/view/pages/login/login_page.dart';
 import 'package:innopay/view/pages/onboarding_page.dart';
@@ -14,7 +16,6 @@ import 'package:innopay/view/pages/pulsa_data/data_internet_success.dart';
 import 'package:innopay/view/pages/register/register_page.dart';
 import 'package:innopay/view/pages/register/register_success_page.dart';
 import 'package:innopay/view/pages/splash_page.dart';
-import 'package:innopay/view/pages/top_up/topup_amount_page.dart';
 import 'package:innopay/view/pages/top_up/topup_page.dart';
 import 'package:innopay/view/pages/top_up/topup_success_page.dart';
 import 'package:innopay/view/pages/transfer/transfer_amount_page.dart';
@@ -32,7 +33,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => AuthBloc()..add(AuthGetCurrentUser()))
+        BlocProvider(
+          create: (context) => AuthBloc()..add(AuthGetCurrentUser()),
+        ),
+        BlocProvider(
+          create: (context) => PaymentMethodBloc()..add(PaymentMethodGet()),
+        ),
+        BlocProvider(
+          create: (context) => TopupBloc(),
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -48,7 +57,6 @@ class MyApp extends StatelessWidget {
           '/profile-edit': (context) => const ProfileEditPage(),
           '/profile-edit-pin': (context) => ProfileEditPinPage(),
           '/top-up': (context) => const TopUpPage(),
-          '/top-up-amount': (context) => const TopUpAmountPage(),
           '/top-up-success': (context) => const TopUpSuccessPage(),
           '/transfer': (context) => const TransferPage(),
           '/transfer-amount': (context) => const TransferAmountPage(),

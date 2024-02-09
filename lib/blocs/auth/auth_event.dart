@@ -51,3 +51,11 @@ class AuthUpdatePin extends AuthEvent {
   @override
   List<Object> get props => [oldPin, newPin];
 }
+
+class AuthUpdateBalance extends AuthEvent {
+  final int amount;
+  const AuthUpdateBalance(this.amount);
+
+  @override
+  List<Object> get props => [amount];
+}
