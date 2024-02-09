@@ -1,11 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:innopay/blocs/auth/auth_bloc.dart';
+import 'package:innopay/blocs/user/user_bloc.dart';
+import 'package:innopay/models/user_model.dart';
 import 'package:innopay/shared/methods.dart';
 import 'package:innopay/shared/theme.dart';
+import 'package:innopay/view/pages/transfer/methods/lastest_transfer.dart';
 import 'package:innopay/view/pages/transfer/methods/result_transfer.dart';
 import 'package:innopay/view/widgets/forms.dart';
 
-class TransferPage extends StatelessWidget {
+class TransferPage extends StatefulWidget {
   const TransferPage({super.key});
+
+  @override
+  State<TransferPage> createState() => _TransferPageState();
+}
+
+class _TransferPageState extends State<TransferPage> {
+  final TextEditingController searchController = TextEditingController();
+  UserModel? selectedUser;
+
+  late UserBloc userBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    userBloc = context.read<UserBloc>()..add(UserGetRecent());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,10 +70,17 @@ class TransferPage extends StatelessWidget {
                           style: whiteTextStyle.copyWith(fontWeight: semiBold),
                         ),
                         verticalSpace(2),
-                        Text(
-                          formatCurrency(100000),
-                          style: whiteTextStyle.copyWith(
-                              fontSize: 24, fontWeight: semiBold),
+                        BlocBuilder<AuthBloc, AuthState>(
+                          builder: (context, state) {
+                            if (state is AuthSuccess) {
+                              return Text(
+                                formatCurrency(state.user.balance ?? 0),
+                                style: whiteTextStyle.copyWith(
+                                    fontSize: 24, fontWeight: semiBold),
+                              );
+                            }
+                            return Container();
+                          },
                         ),
                       ],
                     ),
@@ -98,16 +126,26 @@ class TransferPage extends StatelessWidget {
                             fontSize: 16, fontWeight: semiBold),
                       ),
                       verticalSpace(10),
-                      const CustomTextField(
+                      CustomTextField(
                         title: 'Search',
                         isShowTitle: false,
-                        hintText: 'by name',
+                        hintText: 'by username',
+                        controller: searchController,
+                        onFieldSubmitted: (value) {
+                          if (value.isNotEmpty) {
+                            userBloc.add(UserGetByUsername(value));
+                          } else {
+                            userBloc.add(UserGetRecent());
+                          }
+                          setState(() {});
+                        },
                       )
                     ]),
               ),
               verticalSpace(30),
-              // lastestTransfer(context),
-              resultTransfer(context),
+              searchController.text.isEmpty
+                  ? lastestTransfer(context)
+                  : resultTransfer(context)
             ],
           )
         ],

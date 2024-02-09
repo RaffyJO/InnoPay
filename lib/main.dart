@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:innopay/blocs/auth/auth_bloc.dart';
 import 'package:innopay/blocs/payment_method/payment_method_bloc.dart';
 import 'package:innopay/blocs/topup/topup_bloc.dart';
+import 'package:innopay/blocs/transfer/transfer_bloc.dart';
+import 'package:innopay/blocs/user/user_bloc.dart';
 import 'package:innopay/view/pages/home/home_page.dart';
 import 'package:innopay/view/pages/login/login_page.dart';
 import 'package:innopay/view/pages/onboarding_page.dart';
@@ -18,9 +20,7 @@ import 'package:innopay/view/pages/register/register_success_page.dart';
 import 'package:innopay/view/pages/splash_page.dart';
 import 'package:innopay/view/pages/top_up/topup_page.dart';
 import 'package:innopay/view/pages/top_up/topup_success_page.dart';
-import 'package:innopay/view/pages/transfer/transfer_amount_page.dart';
 import 'package:innopay/view/pages/transfer/transfer_page.dart';
-import 'package:innopay/view/pages/transfer/transfer_success_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -41,6 +41,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => TopupBloc(),
+        ),
+        BlocProvider(
+          create: (context) => UserBloc(),
+        ),
+        BlocProvider(
+          create: (context) => TransferBloc(),
         )
       ],
       child: MaterialApp(
@@ -59,8 +65,6 @@ class MyApp extends StatelessWidget {
           '/top-up': (context) => const TopUpPage(),
           '/top-up-success': (context) => const TopUpSuccessPage(),
           '/transfer': (context) => const TransferPage(),
-          '/transfer-amount': (context) => const TransferAmountPage(),
-          '/transfer-success': (context) => const TransferSuccessPage(),
           '/data-internet': (context) => const DataInternetPage(),
           '/data-internet-package': (context) =>
               const DataInternetPackagePage(),

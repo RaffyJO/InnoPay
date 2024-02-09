@@ -1,12 +1,30 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:innopay/models/transfer_model.dart';
+import 'package:innopay/models/user_model.dart';
 import 'package:innopay/shared/methods.dart';
 import 'package:innopay/shared/theme.dart';
+import 'package:intl/intl.dart';
 
 class TransferSuccessPage extends StatelessWidget {
-  const TransferSuccessPage({super.key});
+  final UserModel userData;
+  final TransferModel data;
+  const TransferSuccessPage({
+    super.key,
+    required this.userData,
+    required this.data,
+  });
 
   @override
   Widget build(BuildContext context) {
+    DateTime currentDate = DateTime.now();
+    String formattedDate = DateFormat('MMMM d, y').format(currentDate);
+    String formattedTime = DateFormat('HH:mm').format(currentDate);
+
+    Random random = Random();
+    int randomNumber = random.nextInt(9000) + 1000;
+
     return Scaffold(
       backgroundColor: orangeColor,
       body: ListView(
@@ -46,7 +64,8 @@ class TransferSuccessPage extends StatelessWidget {
                     ),
                     verticalSpace(25),
                     Text(
-                      formatCurrency(200000),
+                      formatCurrency(
+                          int.parse(data.amount!.replaceAll('.', ''))),
                       style: blackTextStyle.copyWith(
                           fontSize: 30, fontWeight: semiBold),
                     ),
@@ -63,12 +82,16 @@ class TransferSuccessPage extends StatelessWidget {
                         Container(
                           width: 50,
                           height: 50,
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: AssetImage(
-                                      'assets/img_photo_profile.png'))),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                image: (userData.profilePicture == '')
+                                    ? const AssetImage(
+                                        'assets/user-profile.png')
+                                    : NetworkImage(userData.profilePicture!)
+                                        as ImageProvider,
+                                fit: BoxFit.cover),
+                          ),
                         ),
                         horizontalSpace(12),
                         Column(
@@ -76,13 +99,13 @@ class TransferSuccessPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Alexandria',
+                              userData.name.toString(),
                               style: blackTextStyle.copyWith(
                                   fontSize: 16, fontWeight: semiBold),
                             ),
                             verticalSpace(2),
                             Text(
-                              'alexandria@gmail.com',
+                              userData.username!,
                               style: greyTextStyle.copyWith(
                                   fontSize: 13, fontWeight: semiBold),
                             )
@@ -108,7 +131,8 @@ class TransferSuccessPage extends StatelessWidget {
                               fontSize: 14, fontWeight: semiBold),
                         ),
                         Text(
-                          formatCurrency(200000),
+                          formatCurrency(
+                              int.parse(data.amount!.replaceAll(".", ''))),
                           style: blackTextStyle.copyWith(
                               fontSize: 14, fontWeight: semiBold),
                         )
@@ -124,7 +148,7 @@ class TransferSuccessPage extends StatelessWidget {
                               fontSize: 14, fontWeight: semiBold),
                         ),
                         Text(
-                          'June 12, 2023',
+                          formattedDate,
                           style: blackTextStyle.copyWith(
                               fontSize: 14, fontWeight: semiBold),
                         )
@@ -140,7 +164,7 @@ class TransferSuccessPage extends StatelessWidget {
                               fontSize: 14, fontWeight: semiBold),
                         ),
                         Text(
-                          '20:32',
+                          formattedTime,
                           style: blackTextStyle.copyWith(
                               fontSize: 14, fontWeight: semiBold),
                         )
@@ -156,7 +180,7 @@ class TransferSuccessPage extends StatelessWidget {
                               fontSize: 14, fontWeight: semiBold),
                         ),
                         Text(
-                          'QOIU-0012-ADFE-2234',
+                          'INPY-TNFR-$randomNumber',
                           style: blackTextStyle.copyWith(
                               fontSize: 14, fontWeight: semiBold),
                         )
@@ -188,7 +212,8 @@ class TransferSuccessPage extends StatelessWidget {
                               fontSize: 20, fontWeight: semiBold),
                         ),
                         Text(
-                          formatCurrency(200000),
+                          formatCurrency(
+                              int.parse(data.amount!.replaceAll('.', ''))),
                           style: blackTextStyle.copyWith(
                               fontSize: 20, fontWeight: semiBold),
                         )

@@ -8,6 +8,7 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputType? textInputType;
   final bool isShowTitle;
+  final Function(String)? onFieldSubmitted;
 
   const CustomTextField(
       {super.key,
@@ -16,7 +17,8 @@ class CustomTextField extends StatelessWidget {
       this.controller,
       this.textInputType,
       this.hintText = '',
-      this.isShowTitle = true});
+      this.isShowTitle = true,
+      this.onFieldSubmitted});
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,7 @@ class CustomTextField extends StatelessWidget {
             ),
           ),
           cursorColor: orangeColor,
+          onFieldSubmitted: onFieldSubmitted,
         )
       ],
     );

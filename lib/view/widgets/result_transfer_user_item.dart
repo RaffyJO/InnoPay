@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:innopay/models/user_model.dart';
 import 'package:innopay/shared/methods.dart';
 import 'package:innopay/shared/theme.dart';
 
 class ResultTransferUserItem extends StatelessWidget {
-  final String imgUrl;
-  final String name;
-  final String email;
+  final UserModel user;
+  final bool isSelected;
   final VoidCallback? onTap;
 
   const ResultTransferUserItem({
     super.key,
-    required this.imgUrl,
-    required this.name,
-    required this.email,
+    this.isSelected = false,
     this.onTap,
+    required this.user,
   });
 
   @override
@@ -30,9 +29,13 @@ class ResultTransferUserItem extends StatelessWidget {
               width: 50,
               height: 50,
               decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                      fit: BoxFit.cover, image: AssetImage(imgUrl))),
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                    image: (user.profilePicture == '')
+                        ? const AssetImage('assets/user-profile.png')
+                        : NetworkImage(user.profilePicture!) as ImageProvider,
+                    fit: BoxFit.cover),
+              ),
             ),
             horizontalSpace(12),
             Expanded(
@@ -41,13 +44,13 @@ class ResultTransferUserItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    name,
+                    user.name.toString(),
                     style: blackTextStyle.copyWith(
                         fontSize: 14, fontWeight: semiBold),
                   ),
                   verticalSpace(2),
                   Text(
-                    email,
+                    user.username!,
                     style: greyTextStyle.copyWith(
                         fontSize: 12, fontWeight: semiBold),
                   )

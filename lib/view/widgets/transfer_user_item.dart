@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:innopay/models/user_model.dart';
 import 'package:innopay/shared/methods.dart';
 import 'package:innopay/shared/theme.dart';
 
 class LastestTransferUserItem extends StatelessWidget {
-  final String imgUrl;
-  final String name;
-  final String time;
-  final String value;
+  final UserModel user;
   final VoidCallback? onTap;
 
-  const LastestTransferUserItem(
-      {super.key,
-      required this.imgUrl,
-      required this.name,
-      required this.time,
-      required this.value,
-      this.onTap});
+  const LastestTransferUserItem({
+    super.key,
+    this.onTap,
+    required this.user,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +27,13 @@ class LastestTransferUserItem extends StatelessWidget {
               width: 50,
               height: 50,
               decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                      fit: BoxFit.cover, image: AssetImage(imgUrl))),
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                    image: (user.profilePicture == '')
+                        ? const AssetImage('assets/user-profile.png')
+                        : NetworkImage(user.profilePicture!) as ImageProvider,
+                    fit: BoxFit.cover),
+              ),
             ),
             horizontalSpace(12),
             Expanded(
@@ -42,23 +42,22 @@ class LastestTransferUserItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    name,
+                    user.name.toString(),
                     style: blackTextStyle.copyWith(
                         fontSize: 14, fontWeight: semiBold),
                   ),
                   verticalSpace(2),
                   Text(
-                    time,
+                    user.username!,
                     style: greyTextStyle.copyWith(
                         fontSize: 12, fontWeight: semiBold),
                   )
                 ],
               ),
             ),
-            Text(
-              value,
-              style:
-                  blackTextStyle.copyWith(fontSize: 14, fontWeight: semiBold),
+            const Icon(
+              Icons.arrow_forward_ios,
+              size: 18,
             )
           ],
         ),
