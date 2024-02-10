@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:innopay/models/operator_card_model.dart';
 import 'package:innopay/shared/theme.dart';
 
 class InternetItem extends StatelessWidget {
   final bool isSelected;
-  final String name;
-  final String imgUrl;
+  final OperatorCardModel operatorCard;
 
   const InternetItem({
     Key? key,
     this.isSelected = false,
-    required this.name,
-    required this.imgUrl,
+    required this.operatorCard,
   }) : super(key: key);
 
   @override
@@ -33,15 +32,15 @@ class InternetItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.asset(
-            imgUrl,
+          Image.network(
+            operatorCard.thumbnail.toString(),
             height: 30,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                name,
+                operatorCard.name.toString(),
                 style: blackTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: semiBold,
@@ -51,7 +50,7 @@ class InternetItem extends StatelessWidget {
                 height: 2,
               ),
               Text(
-                'Available',
+                operatorCard.status.toString(),
                 style: greyTextStyle.copyWith(
                   fontSize: 12,
                 ),

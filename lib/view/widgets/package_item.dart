@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:innopay/models/data_internet_model.dart';
 import 'package:innopay/shared/methods.dart';
 import 'package:innopay/shared/theme.dart';
 
 class PackageItem extends StatelessWidget {
-  final int amount;
-  final int price;
+  final DataInternetModel dataInternet;
   final bool isSelected;
 
-  const PackageItem(
-      {super.key,
-      required this.amount,
-      required this.price,
-      this.isSelected = false});
+  const PackageItem({
+    super.key,
+    this.isSelected = false,
+    required this.dataInternet,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +27,12 @@ class PackageItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            '${amount}GB',
+            dataInternet.name.toString(),
             style: blackTextStyle.copyWith(fontSize: 16, fontWeight: semiBold),
           ),
           verticalSpace(2),
           Text(
-            formatCurrency(price),
+            formatCurrency(dataInternet.price ?? 0),
             style: greyTextStyle.copyWith(fontWeight: semiBold),
           )
         ],

@@ -163,6 +163,9 @@ class _TransferAmountPageState extends State<TransferAmountPage> {
                       controller: amountController,
                       cursorColor: orangeColor,
                       keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        setState(() {});
+                      },
                       style: blackTextStyle.copyWith(
                           fontSize: 36, fontWeight: medium),
                       decoration: InputDecoration(
@@ -233,36 +236,51 @@ class _TransferAmountPageState extends State<TransferAmountPage> {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               width: double.infinity,
-              child: ElevatedButton(
-                  onPressed: () async {
-                    if (await Navigator.pushNamed(context, '/pin') == true) {
-                      final authState = context.read<AuthBloc>().state;
-                      String pin = '';
-                      if (authState is AuthSuccess) {
-                        pin = authState.user.pin!;
-                      }
+              child:
+                  (amountController.text == '0' || amountController.text == '')
+                      ? ElevatedButton(
+                          onPressed: null,
+                          style: ElevatedButton.styleFrom(
+                              foregroundColor: whiteColor,
+                              backgroundColor: Colors.white54,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                          child: Text(
+                            'Proceed to Transfer',
+                            style: whiteTextStyle.copyWith(
+                                fontSize: 14, fontWeight: semiBold),
+                          ))
+                      : ElevatedButton(
+                          onPressed: () async {
+                            if (await Navigator.pushNamed(context, '/pin') ==
+                                true) {
+                              final authState = context.read<AuthBloc>().state;
+                              String pin = '';
+                              if (authState is AuthSuccess) {
+                                pin = authState.user.pin!;
+                              }
 
-                      context.read<TransferBloc>().add(
-                            TransferPost(
-                              widget.data.copyWith(
-                                pin: pin,
-                                amount:
-                                    amountController.text.replaceAll('.', ''),
-                              ),
-                            ),
-                          );
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                      foregroundColor: whiteColor,
-                      backgroundColor: orangeColor,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                  child: Text(
-                    'Proceed to Transfer',
-                    style: whiteTextStyle.copyWith(
-                        fontSize: 14, fontWeight: semiBold),
-                  )),
+                              context.read<TransferBloc>().add(
+                                    TransferPost(
+                                      widget.data.copyWith(
+                                        pin: pin,
+                                        amount: amountController.text
+                                            .replaceAll('.', ''),
+                                      ),
+                                    ),
+                                  );
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                              foregroundColor: whiteColor,
+                              backgroundColor: orangeColor,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                          child: Text(
+                            'Proceed to Transfer',
+                            style: whiteTextStyle.copyWith(
+                                fontSize: 14, fontWeight: semiBold),
+                          )),
             ),
           ),
           verticalSpace(30)

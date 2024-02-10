@@ -48,7 +48,9 @@ Widget userServices(BuildContext context) {
         ),
       ),
       GestureDetector(
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, '/upcoming');
+        },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
