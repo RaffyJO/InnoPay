@@ -18,6 +18,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  String? profilePicture;
 
   @override
   void initState() {
@@ -29,6 +30,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
       nameController.text = authState.user.name!;
       emailController.text = authState.user.email!;
       passwordController.text = authState.user.password!;
+      profilePicture = authState.user.profilePicture!;
     }
   }
 
@@ -50,7 +52,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
 
           if (state is AuthSuccess) {
             Navigator.pushNamedAndRemoveUntil(
-                context, '/profile', (route) => false);
+                context, '/home', (route) => false);
           }
         },
         builder: (context, state) {
@@ -70,12 +72,16 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                       width: 120,
                       height: 120,
                       decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: greyColor, width: 0.2),
-                          image: const DecorationImage(
-                              fit: BoxFit.cover,
-                              image:
-                                  AssetImage('assets/img_photo_profile.png'))),
+                        shape: BoxShape.circle,
+                        border: Border.all(color: greyColor, width: 0.2),
+                        image: DecorationImage(
+                            image: (profilePicture == '' ||
+                                    profilePicture == null)
+                                ? const AssetImage('assets/user-profile.png')
+                                : NetworkImage(profilePicture!)
+                                    as ImageProvider,
+                            fit: BoxFit.cover),
+                      ),
                     ),
                   ),
                   verticalSpace(20),
@@ -100,34 +106,37 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     controller: passwordController,
                   ),
                   verticalSpace(32),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                        onPressed: () {
-                          context.read<AuthBloc>().add(
-                                AuthUpdateUser(
-                                  UserEditModel(
-                                    userName: userNameController.text,
-                                    name: nameController.text,
-                                    email: emailController.text,
-                                    password: passwordController.text,
-                                  ),
-                                ),
-                              );
-                        },
-                        style: ElevatedButton.styleFrom(
-                            foregroundColor: whiteColor,
-                            backgroundColor: orangeColor,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10))),
-                        child: Text(
-                          'Update',
-                          style: whiteTextStyle.copyWith(
-                              fontSize: 14, fontWeight: semiBold),
-                        )),
-                  ),
                 ],
-              )
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        context.read<AuthBloc>().add(
+                              AuthUpdateUser(
+                                UserEditModel(
+                                  userName: userNameController.text,
+                                  name: nameController.text,
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                ),
+                              ),
+                            );
+                      },
+                      style: ElevatedButton.styleFrom(
+                          foregroundColor: whiteColor,
+                          backgroundColor: orangeColor,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                      child: Text(
+                        'Update',
+                        style: whiteTextStyle.copyWith(
+                            fontSize: 14, fontWeight: semiBold),
+                      )),
+                ),
+              ),
             ],
           );
         },

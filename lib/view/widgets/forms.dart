@@ -9,6 +9,7 @@ class CustomTextField extends StatelessWidget {
   final TextInputType? textInputType;
   final bool isShowTitle;
   final Function(String)? onFieldSubmitted;
+  final Function(String)? onFieldChanged;
 
   const CustomTextField(
       {super.key,
@@ -18,7 +19,8 @@ class CustomTextField extends StatelessWidget {
       this.textInputType,
       this.hintText = '',
       this.isShowTitle = true,
-      this.onFieldSubmitted});
+      this.onFieldSubmitted,
+      this.onFieldChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +51,7 @@ class CustomTextField extends StatelessWidget {
           ),
           cursorColor: orangeColor,
           onFieldSubmitted: onFieldSubmitted,
+          onChanged: onFieldChanged,
         )
       ],
     );

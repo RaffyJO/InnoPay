@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:innopay/models/data_internet_plan_model.dart';
 import 'package:innopay/models/operator_card_model.dart';
 import 'package:innopay/models/topup_model.dart';
+import 'package:innopay/models/transaction_model.dart';
 import 'package:innopay/models/transfer_model.dart';
 import 'package:innopay/services/auth_service.dart';
 import 'package:innopay/shared/values.dart';
@@ -97,6 +98,60 @@ class TransactionService {
       );
 
       if (res.statusCode != 200) {
+        throw jsonDecode(res.body)['message'];
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<TransactionModel>> getTransactions() async {
+    try {
+      final token = await AuthService().getToken();
+
+      final res = await http.get(
+        Uri.parse(
+          '$baseUrl/transactions',
+        ),
+        headers: {
+          'Authorization': token,
+        },
+      );
+
+      if (res.statusCode == 200) {
+        return List<TransactionModel>.from(
+          jsonDecode(res.body)['data'].map(
+            (transaction) => TransactionModel.fromJson(transaction),
+          ),
+        ).toList();
+      } else {
+        throw jsonDecode(res.body)['message'];
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<TransactionModel>> getLastTransactions() async {
+    try {
+      final token = await AuthService().getToken();
+
+      final res = await http.get(
+        Uri.parse(
+          '$baseUrl/transactions?limit=3',
+        ),
+        headers: {
+          'Authorization': token,
+        },
+      );
+
+      if (res.statusCode == 200) {
+        return List<TransactionModel>.from(
+          jsonDecode(res.body)['data'].map(
+            (transaction) => TransactionModel.fromJson(transaction),
+          ),
+        ).toList();
+      } else {
         throw jsonDecode(res.body)['message'];
       }
     } catch (e) {

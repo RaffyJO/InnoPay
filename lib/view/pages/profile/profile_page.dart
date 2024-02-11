@@ -81,19 +81,24 @@ class ProfilePage extends StatelessWidget {
                           ),
                           verticalSpace(5),
                           profileItem(
-                              'Wallet Settings',
-                              const Icon(
-                                Icons.account_balance_wallet_outlined,
-                                size: 28,
-                              )),
+                            'Wallet Settings',
+                            const Icon(
+                              Icons.account_balance_wallet_outlined,
+                              size: 28,
+                            ),
+                            onTap: () {
+                              Navigator.pushNamed(context, '/upcoming');
+                            },
+                          ),
                           verticalSpace(5),
                           profileItem(
                               'Points',
                               const Icon(
                                 Icons.celebration_outlined,
                                 size: 28,
-                              ),
-                              isDivider: false),
+                              ), onTap: () {
+                            Navigator.pushNamed(context, '/upcoming');
+                          }, isDivider: false),
                         ],
                       ),
                     ),
@@ -107,30 +112,39 @@ class ProfilePage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           profileItem(
-                              'Help Center',
-                              const Icon(
-                                Icons.help_outline,
-                                size: 28,
-                              )),
+                            'Help Center',
+                            const Icon(
+                              Icons.help_outline,
+                              size: 28,
+                            ),
+                            onTap: () {
+                              Navigator.pushNamed(context, '/upcoming');
+                            },
+                          ),
                           verticalSpace(5),
                           profileItem(
-                              'Terms & Conditions',
-                              const Icon(
-                                Icons.file_copy_outlined,
-                                size: 28,
-                              )),
+                            'Terms & Conditions',
+                            const Icon(
+                              Icons.file_copy_outlined,
+                              size: 28,
+                            ),
+                            onTap: () {
+                              Navigator.pushNamed(context, '/upcoming');
+                            },
+                          ),
                           verticalSpace(5),
                           profileItem(
                               'Privacy Policy',
                               const Icon(
                                 Icons.info_outline_rounded,
                                 size: 28,
-                              ),
-                              isDivider: false),
+                              ), onTap: () {
+                            Navigator.pushNamed(context, '/upcoming');
+                          }, isDivider: false),
                         ],
                       ),
                     ),
-                    verticalSpace(60),
+                    verticalSpace(50),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 24),
                       width: double.infinity,
@@ -149,7 +163,7 @@ class ProfilePage extends StatelessWidget {
                                 fontSize: 14, fontWeight: semiBold),
                           )),
                     ),
-                    verticalSpace(24),
+                    verticalSpace(20),
                     Text(
                       'Version 0.0.1',
                       style: blackTextStyle.copyWith(

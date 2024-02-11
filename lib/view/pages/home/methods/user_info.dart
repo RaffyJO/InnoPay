@@ -18,7 +18,7 @@ Widget userInfo({
         ],
       ),
       Container(
-          width: 130,
+          width: 120,
           height: 32,
           decoration: BoxDecoration(
             color: whiteColor,

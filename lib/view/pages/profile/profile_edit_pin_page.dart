@@ -5,11 +5,17 @@ import 'package:innopay/shared/methods.dart';
 import 'package:innopay/shared/theme.dart';
 import 'package:innopay/view/widgets/forms.dart';
 
-class ProfileEditPinPage extends StatelessWidget {
-  final TextEditingController oldPinController = TextEditingController();
-  final TextEditingController newPinController = TextEditingController();
+class ProfileEditPinPage extends StatefulWidget {
+  const ProfileEditPinPage({super.key});
 
-  ProfileEditPinPage({super.key});
+  @override
+  State<ProfileEditPinPage> createState() => _ProfileEditPinPageState();
+}
+
+class _ProfileEditPinPageState extends State<ProfileEditPinPage> {
+  final TextEditingController oldPinController = TextEditingController();
+
+  final TextEditingController newPinController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +35,7 @@ class ProfileEditPinPage extends StatelessWidget {
 
           if (state is AuthSuccess) {
             Navigator.pushNamedAndRemoveUntil(
-                context, '/profile', (route) => false);
+                context, '/home', (route) => false);
           }
         },
         builder: (context, state) {
@@ -49,6 +55,9 @@ class ProfileEditPinPage extends StatelessWidget {
                     controller: oldPinController,
                     obscureText: true,
                     textInputType: TextInputType.number,
+                    onFieldChanged: (p0) {
+                      setState(() {});
+                    },
                   ),
                   verticalSpace(20),
                   CustomTextField(
@@ -56,28 +65,48 @@ class ProfileEditPinPage extends StatelessWidget {
                     controller: newPinController,
                     obscureText: true,
                     textInputType: TextInputType.number,
+                    onFieldChanged: (p0) {
+                      setState(() {});
+                    },
                   ),
-                  verticalSpace(32),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                        onPressed: () {
-                          context.read<AuthBloc>().add(
-                                AuthUpdatePin(oldPinController.text,
-                                    newPinController.text),
-                              );
-                        },
-                        style: ElevatedButton.styleFrom(
-                            foregroundColor: whiteColor,
-                            backgroundColor: orangeColor,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10))),
-                        child: Text(
-                          'Update',
-                          style: whiteTextStyle.copyWith(
-                              fontSize: 14, fontWeight: semiBold),
-                        )),
-                  ),
+                  verticalSpace(50),
+                  (oldPinController.text.isEmpty ||
+                          newPinController.text.isEmpty)
+                      ? SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                              onPressed: null,
+                              style: ElevatedButton.styleFrom(
+                                  foregroundColor: whiteColor,
+                                  backgroundColor: Colors.white54,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10))),
+                              child: Text(
+                                'Update',
+                                style: whiteTextStyle.copyWith(
+                                    fontSize: 14, fontWeight: semiBold),
+                              )),
+                        )
+                      : SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                              onPressed: () {
+                                context.read<AuthBloc>().add(
+                                      AuthUpdatePin(oldPinController.text,
+                                          newPinController.text),
+                                    );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  foregroundColor: whiteColor,
+                                  backgroundColor: orangeColor,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10))),
+                              child: Text(
+                                'Update',
+                                style: whiteTextStyle.copyWith(
+                                    fontSize: 14, fontWeight: semiBold),
+                              )),
+                        ),
                 ],
               )
             ],

@@ -16,7 +16,7 @@ class TopUpSuccessPage extends StatelessWidget {
             children: [
               Image.asset(
                 'assets/icon-success.png',
-                width: 200,
+                width: 150,
               ),
               verticalSpace(30),
               Text(

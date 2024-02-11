@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:innopay/models/user_model.dart';
 import 'package:innopay/shared/methods.dart';
 import 'package:innopay/shared/theme.dart';
 
-class HomeUserItem extends StatelessWidget {
-  final UserModel user;
+class HomeUserItemEmpty extends StatelessWidget {
   final VoidCallback? onTap;
 
-  const HomeUserItem({super.key, required this.user, this.onTap});
+  const HomeUserItemEmpty({super.key, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -22,19 +20,17 @@ class HomeUserItem extends StatelessWidget {
             Container(
               width: 65,
               height: 65,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                    image: (user.profilePicture == '' ||
-                            user.profilePicture == null)
-                        ? const AssetImage('assets/user-profile.png')
-                        : NetworkImage(user.profilePicture!) as ImageProvider,
-                    fit: BoxFit.cover),
+                  image: AssetImage('assets/btn-add.png'),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             verticalSpace(5),
             Text(
-              user.name.toString().split(' ').first,
+              'Add New',
               style:
                   blackTextStyle.copyWith(fontSize: 12, fontWeight: semiBold),
             )

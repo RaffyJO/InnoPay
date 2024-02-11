@@ -9,6 +9,7 @@ import 'package:innopay/blocs/transfer/transfer_bloc.dart';
 import 'package:innopay/blocs/user/user_bloc.dart';
 import 'package:innopay/view/pages/home/home_page.dart';
 import 'package:innopay/view/pages/login/login_page.dart';
+import 'package:innopay/view/pages/main_page.dart';
 import 'package:innopay/view/pages/onboarding_page.dart';
 import 'package:innopay/view/pages/pin_page.dart';
 import 'package:innopay/view/pages/profile/profile_edit_page.dart';
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) => PaymentMethodBloc()..add(PaymentMethodGet())),
         BlocProvider(create: (context) => TopupBloc()),
-        BlocProvider(create: (context) => UserBloc()),
+        BlocProvider(create: (context) => UserBloc()..add(UserGetRecent())),
         BlocProvider(create: (context) => TransferBloc()),
         BlocProvider(
             create: (context) => OperatorCardBloc()..add(OperatorCardGet())),
@@ -54,11 +55,12 @@ class MyApp extends StatelessWidget {
           '/login': (context) => LoginPage(),
           '/register': (context) => RegisterPage(),
           '/register-success': (context) => const RegisterSuccsessPage(),
-          '/home': (context) => const HomePage(),
+          '/home-page': (context) => const HomePage(),
+          '/home': (context) => const MainPage(),
           '/profile': (context) => const ProfilePage(),
           '/pin': (context) => const PinPage(),
           '/profile-edit': (context) => const ProfileEditPage(),
-          '/profile-edit-pin': (context) => ProfileEditPinPage(),
+          '/profile-edit-pin': (context) => const ProfileEditPinPage(),
           '/top-up': (context) => const TopUpPage(),
           '/top-up-success': (context) => const TopUpSuccessPage(),
           '/transfer': (context) => const TransferPage(),

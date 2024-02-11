@@ -23,9 +23,10 @@ class TransferAmountPage extends StatefulWidget {
 }
 
 class _TransferAmountPageState extends State<TransferAmountPage> {
-  final TextEditingController amountController =
-      TextEditingController(text: '0');
+  final TextEditingController amountController = TextEditingController();
   final TextEditingController notesController = TextEditingController();
+
+  late AuthBloc authBloc;
 
   @override
   void initState() {
@@ -233,54 +234,72 @@ class _TransferAmountPageState extends State<TransferAmountPage> {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              width: double.infinity,
-              child:
-                  (amountController.text == '0' || amountController.text == '')
-                      ? ElevatedButton(
-                          onPressed: null,
-                          style: ElevatedButton.styleFrom(
-                              foregroundColor: whiteColor,
-                              backgroundColor: Colors.white54,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10))),
-                          child: Text(
-                            'Proceed to Transfer',
-                            style: whiteTextStyle.copyWith(
-                                fontSize: 14, fontWeight: semiBold),
-                          ))
-                      : ElevatedButton(
-                          onPressed: () async {
-                            if (await Navigator.pushNamed(context, '/pin') ==
-                                true) {
-                              final authState = context.read<AuthBloc>().state;
-                              String pin = '';
-                              if (authState is AuthSuccess) {
-                                pin = authState.user.pin!;
-                              }
+            child: BlocBuilder<AuthBloc, AuthState>(
+              builder: (context, state) {
+                if (state is AuthSuccess) {
+                  int currentAmount = state.user.balance ?? 0;
+                  int enteredAmount =
+                      int.tryParse(amountController.text.replaceAll('.', '')) ??
+                          0;
+                  return Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    width: double.infinity,
+                    child: (amountController.text == '0' ||
+                            amountController.text == '')
+                        ? ElevatedButton(
+                            onPressed: null,
+                            style: ElevatedButton.styleFrom(
+                                foregroundColor: whiteColor,
+                                backgroundColor: Colors.white54,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10))),
+                            child: Text(
+                              'Proceed to Transfer',
+                              style: whiteTextStyle.copyWith(
+                                  fontSize: 14, fontWeight: semiBold),
+                            ))
+                        : ElevatedButton(
+                            onPressed: () async {
+                              if (currentAmount >= enteredAmount) {
+                                if (await Navigator.pushNamed(
+                                        context, '/pin') ==
+                                    true) {
+                                  final authState =
+                                      context.read<AuthBloc>().state;
+                                  String pin = '';
+                                  if (authState is AuthSuccess) {
+                                    pin = authState.user.pin!;
+                                  }
 
-                              context.read<TransferBloc>().add(
-                                    TransferPost(
-                                      widget.data.copyWith(
-                                        pin: pin,
-                                        amount: amountController.text
-                                            .replaceAll('.', ''),
-                                      ),
-                                    ),
-                                  );
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                              foregroundColor: whiteColor,
-                              backgroundColor: orangeColor,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10))),
-                          child: Text(
-                            'Proceed to Transfer',
-                            style: whiteTextStyle.copyWith(
-                                fontSize: 14, fontWeight: semiBold),
-                          )),
+                                  context.read<TransferBloc>().add(
+                                        TransferPost(
+                                          widget.data.copyWith(
+                                            pin: pin,
+                                            amount: amountController.text
+                                                .replaceAll('.', ''),
+                                          ),
+                                        ),
+                                      );
+                                }
+                              } else {
+                                showCustomSnackbar(
+                                    context, 'Your balance is not enough');
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                                foregroundColor: whiteColor,
+                                backgroundColor: orangeColor,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10))),
+                            child: Text(
+                              'Proceed to Transfer',
+                              style: whiteTextStyle.copyWith(
+                                  fontSize: 14, fontWeight: semiBold),
+                            )),
+                  );
+                }
+                return Container();
+              },
             ),
           ),
           verticalSpace(30)

@@ -9,8 +9,21 @@ import 'package:innopay/view/pages/home/methods/user_balance.dart';
 import 'package:innopay/view/pages/home/methods/user_info.dart';
 import 'package:innopay/view/pages/home/methods/user_services.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int currentPageIndex = 0;
+
+  void onNavBarTapped(int index) {
+    setState(() {
+      currentPageIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +54,7 @@ class HomePage extends StatelessWidget {
                   alignment: Alignment.bottomCenter,
                   child: Container(
                     width: double.infinity,
-                    height: MediaQuery.of(context).size.height * 0.59,
+                    height: MediaQuery.of(context).size.height * 0.66,
                     decoration: BoxDecoration(
                       color: whiteColor,
                       borderRadius: const BorderRadius.only(
@@ -67,7 +80,7 @@ class HomePage extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
-                      transform: Matrix4.translationValues(0, -100, 0),
+                      transform: Matrix4.translationValues(0, -130, 0),
                       width: MediaQuery.of(context).size.width - 48,
                       height: 80,
                       decoration: BoxDecoration(
@@ -91,56 +104,32 @@ class HomePage extends StatelessWidget {
           return Container();
         },
       ),
-      bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          selectedItemColor: orangeColor,
-          unselectedItemColor: greyColor,
-          showSelectedLabels: true,
-          showUnselectedLabels: true,
-          selectedLabelStyle: orangeTextStyle.copyWith(fontWeight: semiBold),
-          unselectedLabelStyle: greyTextStyle.copyWith(fontWeight: semiBold),
-          selectedFontSize: 12,
-          currentIndex: 0,
-          items: [
-            BottomNavigationBarItem(
-                icon: Image.asset(
-                  'assets/icon-home.png',
-                  width: 25,
-                  color: orangeColor,
-                ),
-                label: 'Home'),
-            BottomNavigationBarItem(
-                icon: Image.asset(
-                  'assets/icon-report.png',
-                  width: 25,
-                ),
-                label: 'Report'),
-            BottomNavigationBarItem(
-                icon: Image.asset(
-                  'assets/icon-history.png',
-                  width: 25,
-                ),
-                label: 'History'),
-            BottomNavigationBarItem(
-                icon: Image.asset(
-                  'assets/icon-profile.png',
-                  width: 25,
-                ),
-                label: 'Profile'),
-          ]),
-      floatingActionButton: FloatingActionButton(
-        elevation: 0,
-        onPressed: () {
-          Navigator.pushNamed(context, '/profile');
-        },
-        backgroundColor: orangeColor,
-        shape: const CircleBorder(),
-        child: Image.asset(
-          'assets/icon-qr.png',
-          width: 30,
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // bottomNavigationBar: BottomNavigationBar(
+      //   type: BottomNavigationBarType.fixed,
+      //   selectedItemColor: orangeColor,
+      //   unselectedItemColor: greyColor,
+      //   showSelectedLabels: true,
+      //   showUnselectedLabels: true,
+      //   selectedLabelStyle: orangeTextStyle.copyWith(fontWeight: semiBold),
+      //   unselectedLabelStyle: greyTextStyle.copyWith(fontWeight: semiBold),
+      //   selectedFontSize: 12,
+      //   currentIndex: currentPageIndex,
+      //   items: bottonNavBarItems,
+      //   onTap: onNavBarTapped,
+      // ),
+      // floatingActionButton: FloatingActionButton(
+      //   elevation: 0,
+      //   onPressed: () {
+      //     Navigator.pushNamed(context, '/profile');
+      //   },
+      //   backgroundColor: orangeColor,
+      //   shape: const CircleBorder(),
+      //   child: Image.asset(
+      //     'assets/icon-qr.png',
+      //     width: 30,
+      //   ),
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

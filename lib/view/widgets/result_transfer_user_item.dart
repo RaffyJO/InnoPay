@@ -31,7 +31,8 @@ class ResultTransferUserItem extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                    image: (user.profilePicture == '')
+                    image: (user.profilePicture == '' ||
+                            user.profilePicture == null)
                         ? const AssetImage('assets/user-profile.png')
                         : NetworkImage(user.profilePicture!) as ImageProvider,
                     fit: BoxFit.cover),

@@ -175,7 +175,8 @@ class LoginPage extends StatelessWidget {
                         ),
                         InkWell(
                             onTap: () {
-                              Navigator.pushNamed(context, '/register');
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, '/register', (route) => false);
                             },
                             child: Text(
                               'Sign Up',
