@@ -118,6 +118,7 @@ class _TopUpPageState extends State<TopUpPage> {
                               data: TopupModel(
                                   paymentMethodCode:
                                       selectedPaymentMethod?.code),
+                              paymentMethod: selectedPaymentMethod!,
                             ),
                           ),
                         );

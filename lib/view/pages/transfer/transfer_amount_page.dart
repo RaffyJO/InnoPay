@@ -52,6 +52,7 @@ class _TransferAmountPageState extends State<TransferAmountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: whiteColor,
       appBar: AppBar(
         backgroundColor: orangeColor,
         centerTitle: true,
@@ -277,6 +278,7 @@ class _TransferAmountPageState extends State<TransferAmountPage> {
                                             pin: pin,
                                             amount: amountController.text
                                                 .replaceAll('.', ''),
+                                            description: notesController.text,
                                           ),
                                         ),
                                       );

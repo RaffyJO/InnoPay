@@ -88,7 +88,7 @@ class _RegisterSetProfilePageState extends State<RegisterSetProfilePage> {
                 ),
                 verticalSpace(14),
                 Center(
-                  child: Text('John Doe',
+                  child: Text(widget.data.name!,
                       style: blackTextStyle.copyWith(
                           fontSize: 18, fontWeight: semiBold)),
                 ),

@@ -16,7 +16,7 @@ class PackageItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 165,
+      width: (MediaQuery.of(context).size.width - 48 - 20) / 2,
       height: 100,
       decoration: BoxDecoration(
           color: whiteColor,

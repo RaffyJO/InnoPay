@@ -31,6 +31,7 @@ class _TransferPageState extends State<TransferPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: whiteColor,
       appBar: AppBar(
         backgroundColor: orangeColor,
         centerTitle: true,

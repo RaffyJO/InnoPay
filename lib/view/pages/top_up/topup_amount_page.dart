@@ -4,25 +4,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:innopay/blocs/auth/auth_bloc.dart';
 import 'package:innopay/blocs/topup/topup_bloc.dart';
+import 'package:innopay/models/payment_method_model.dart';
 import 'package:innopay/models/topup_model.dart';
 import 'package:innopay/shared/methods.dart';
 import 'package:innopay/shared/theme.dart';
-import 'package:innopay/view/widgets/buttons.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TopUpAmountPage extends StatefulWidget {
+  final PaymentMethodModel paymentMethod;
   final TopupModel data;
 
-  const TopUpAmountPage({super.key, required this.data});
+  const TopUpAmountPage({
+    super.key,
+    required this.data,
+    required this.paymentMethod,
+  });
 
   @override
   State<TopUpAmountPage> createState() => _TopUpAmountPageState();
 }
 
 class _TopUpAmountPageState extends State<TopUpAmountPage> {
-  final TextEditingController amountController =
-      TextEditingController(text: '0');
+  final TextEditingController amountController = TextEditingController();
+
+  late AuthBloc authBloc;
 
   @override
   void initState() {
@@ -45,83 +51,109 @@ class _TopUpAmountPageState extends State<TopUpAmountPage> {
     });
   }
 
-  addAmount(String number) {
-    if (amountController.text == '0') {
-      amountController.text = '';
-    }
-    setState(() {
-      amountController.text = amountController.text + number;
-    });
-  }
-
-  deleteAmount() {
-    if (amountController.text.isNotEmpty) {
-      setState(() {
-        amountController.text = amountController.text
-            .substring(0, amountController.text.length - 1);
-        if (amountController.text == '') {
-          amountController.text = '0';
-        }
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: whiteColor,
-        body: BlocConsumer<TopupBloc, TopupState>(
-          listener: (context, state) async {
-            if (state is TopupFailed) {
-              showCustomSnackbar(context, state.e);
-            }
+      backgroundColor: whiteColor,
+      appBar: AppBar(
+        backgroundColor: orangeColor,
+        centerTitle: true,
+        title: Text(
+          'Top Up',
+          style: whiteTextStyle.copyWith(fontWeight: semiBold, fontSize: 20),
+        ),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.arrow_back,
+            color: whiteColor,
+          ),
+        ),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: BlocConsumer<TopupBloc, TopupState>(
+              listener: (context, state) async {
+                if (state is TopupFailed) {
+                  showCustomSnackbar(context, state.e);
+                }
 
-            if (state is TopupSuccess) {
-              await launch(state.redirectUrl);
+                if (state is TopupSuccess) {
+                  await launch(state.redirectUrl);
 
-              context.read<AuthBloc>().add(
-                    AuthUpdateBalance(
-                      int.parse(
-                        amountController.text.replaceAll(".", ""),
+                  context.read<AuthBloc>().add(
+                        AuthUpdateBalance(
+                          int.parse(
+                            amountController.text.replaceAll(".", ""),
+                          ),
+                        ),
+                      );
+
+                  Timer(const Duration(seconds: 2), () {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/top-up-success', (route) => false);
+                  });
+                }
+              },
+              builder: (context, state) {
+                return ListView(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  children: [
+                    verticalSpace(30),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 15),
+                      width: double.infinity,
+                      height: 60,
+                      child: Row(
+                        children: [
+                          Image.network(
+                            widget.paymentMethod.thumbnail.toString(),
+                            height: 30,
+                          ),
+                          horizontalSpace(16),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                widget.paymentMethod.name.toString(),
+                                style: blackTextStyle.copyWith(
+                                    fontSize: 16, fontWeight: semiBold),
+                              ),
+                              verticalSpace(2),
+                              Text(
+                                widget.paymentMethod.status.toString(),
+                                style: greyTextStyle.copyWith(
+                                    fontSize: 13, fontWeight: semiBold),
+                              )
+                            ],
+                          ),
+                        ],
                       ),
                     ),
-                  );
-
-              Timer(const Duration(seconds: 2), () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/top-up-success', (route) => false);
-              });
-            }
-          },
-          builder: (context, state) {
-            return ListView(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 58,
-              ),
-              children: [
-                verticalSpace(70),
-                Center(
-                  child: Text(
-                    'Total Amount',
-                    style: blackTextStyle.copyWith(
-                      fontSize: 20,
-                      fontWeight: semiBold,
+                    const Divider(),
+                    verticalSpace(15),
+                    Text(
+                      'Set Amount',
+                      style: blackTextStyle.copyWith(
+                          fontSize: 16, fontWeight: semiBold),
                     ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 62,
-                ),
-                Align(
-                  child: SizedBox(
-                    width: 240,
-                    child: TextFormField(
+                    verticalSpace(5),
+                    TextFormField(
                       controller: amountController,
-                      cursorColor: greyColor,
-                      enabled: false,
+                      cursorColor: orangeColor,
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        setState(() {});
+                      },
                       style: blackTextStyle.copyWith(
                           fontSize: 36, fontWeight: medium),
                       decoration: InputDecoration(
+                        hintText: '0',
                         prefixIcon: Text(
                           'Rp ',
                           style: blackTextStyle.copyWith(
@@ -131,147 +163,97 @@ class _TopUpAmountPageState extends State<TopUpAmountPage> {
                         ),
                         disabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
+                            color: orangeColor,
+                          ),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
                             color: greyColor,
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 66,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Wrap(
-                    spacing: 40,
-                    runSpacing: 40,
-                    children: [
-                      CustomInputButton(
-                        title: '1',
-                        onTap: () {
-                          addAmount('1');
-                        },
-                      ),
-                      CustomInputButton(
-                        title: '2',
-                        onTap: () {
-                          addAmount('2');
-                        },
-                      ),
-                      CustomInputButton(
-                        title: '3',
-                        onTap: () {
-                          addAmount('3');
-                        },
-                      ),
-                      CustomInputButton(
-                        title: '4',
-                        onTap: () {
-                          addAmount('4');
-                        },
-                      ),
-                      CustomInputButton(
-                        title: '5',
-                        onTap: () {
-                          addAmount('5');
-                        },
-                      ),
-                      CustomInputButton(
-                        title: '6',
-                        onTap: () {
-                          addAmount('6');
-                        },
-                      ),
-                      CustomInputButton(
-                        title: '7',
-                        onTap: () {
-                          addAmount('7');
-                        },
-                      ),
-                      CustomInputButton(
-                        title: '8',
-                        onTap: () {
-                          addAmount('8');
-                        },
-                      ),
-                      CustomInputButton(
-                        title: '9',
-                        onTap: () {
-                          addAmount('9');
-                        },
-                      ),
-                      const SizedBox(
-                        width: 60,
-                        height: 60,
-                      ),
-                      CustomInputButton(
-                        title: '0',
-                        onTap: () {
-                          addAmount('0');
-                        },
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          deleteAmount();
-                        },
-                        child: Container(
-                          width: 60,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: blackColor,
-                          ),
-                          child: Center(
-                            child: Icon(
-                              Icons.arrow_back,
-                              color: whiteColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                verticalSpace(50),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                      onPressed: () async {
-                        if (await Navigator.pushNamed(context, '/pin') ==
-                            true) {
-                          final authState = context.read<AuthBloc>().state;
-                          String pin = '';
-                          if (authState is AuthSuccess) {
-                            pin = authState.user.pin!;
-                          }
+                    verticalSpace(5),
+                    const Text(
+                      '* Minimum Top Up Rp 10.000',
+                      style: TextStyle(color: Colors.red),
+                    )
+                  ],
+                );
+              },
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: BlocBuilder<AuthBloc, AuthState>(
+              builder: (context, state) {
+                if (state is AuthSuccess) {
+                  return Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    width: double.infinity,
+                    child: (amountController.text == '0' ||
+                            amountController.text == '')
+                        ? ElevatedButton(
+                            onPressed: null,
+                            style: ElevatedButton.styleFrom(
+                                foregroundColor: whiteColor,
+                                backgroundColor: Colors.white54,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10))),
+                            child: Text(
+                              'Proceed to Top Up',
+                              style: whiteTextStyle.copyWith(
+                                  fontSize: 14, fontWeight: semiBold),
+                            ))
+                        : ElevatedButton(
+                            onPressed: () async {
+                              if (int.tryParse(amountController.text
+                                      .replaceAll('.', ''))! >=
+                                  10000) {
+                                if (await Navigator.pushNamed(
+                                        context, '/pin') ==
+                                    true) {
+                                  final authState =
+                                      context.read<AuthBloc>().state;
+                                  String pin = '';
+                                  if (authState is AuthSuccess) {
+                                    pin = authState.user.pin!;
+                                  }
 
-                          context.read<TopupBloc>().add(
-                                TopupPost(
-                                  widget.data.copyWith(
-                                    pin: pin,
-                                    amount: amountController.text
-                                        .replaceAll('.', ''),
-                                  ),
-                                ),
-                              );
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                          foregroundColor: whiteColor,
-                          backgroundColor: blackColor,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                      child: Text(
-                        'Continue',
-                        style: whiteTextStyle.copyWith(
-                            fontSize: 14, fontWeight: semiBold),
-                      )),
-                ),
-                verticalSpace(50)
-              ],
-            );
-          },
-        ));
+                                  context.read<TopupBloc>().add(
+                                        TopupPost(
+                                          widget.data.copyWith(
+                                            pin: pin,
+                                            amount: amountController.text
+                                                .replaceAll('.', ''),
+                                          ),
+                                        ),
+                                      );
+                                }
+                              } else {
+                                showCustomSnackbar(
+                                    context, 'Minimum Top Up Rp 10.000');
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                                foregroundColor: whiteColor,
+                                backgroundColor: orangeColor,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10))),
+                            child: Text(
+                              'Proceed to Top Up',
+                              style: whiteTextStyle.copyWith(
+                                  fontSize: 14, fontWeight: semiBold),
+                            )),
+                  );
+                }
+                return Container();
+              },
+            ),
+          ),
+          verticalSpace(30)
+        ],
+      ),
+    );
   }
 }

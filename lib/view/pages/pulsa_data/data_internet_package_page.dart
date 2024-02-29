@@ -79,7 +79,7 @@ class _DataInternetPackagePageState extends State<DataInternetPackagePage> {
                           CustomTextField(
                             title: 'Phone Number',
                             isShowTitle: false,
-                            hintText: '+628',
+                            hintText: '08...',
                             textInputType: TextInputType.number,
                             controller: phoneController,
                             onFieldSubmitted: (value) {
